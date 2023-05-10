@@ -2,6 +2,8 @@ package com.example.MonitoringInternetShop.Controllers;
 
 import com.example.MonitoringInternetShop.Models.Order;
 import com.example.MonitoringInternetShop.Models.Product;
+import com.example.MonitoringInternetShop.Services.OrderService;
+import com.example.MonitoringInternetShop.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

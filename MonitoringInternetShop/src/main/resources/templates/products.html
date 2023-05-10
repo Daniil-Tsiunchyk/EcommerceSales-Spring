@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог товаров</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/products}">Каталог товаров</a></li>
+            <li><a th:href="@{/orders}">Заказы</a></li>
+            <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
+            <li><a th:href="@{/settings}">Страница настроек</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>Каталог товаров</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.description}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

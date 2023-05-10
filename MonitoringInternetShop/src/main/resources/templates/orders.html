@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/products}">Каталог товаров</a></li>
+            <li><a th:href="@{/orders}">Заказы</a></li>
+            <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
+            <li><a th:href="@{/settings}">Страница настроек</a></li>
+        </ul>
+    </nav>
+</header>
+<h1>Заказы</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Номер заказа</th>
+        <th>Дата заказа</th>
+        <th>Имя покупателя</th>
+        <th>Сумма заказа</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.user.name}"></td>
+        <td th:text="${order.getTotalAmount()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
