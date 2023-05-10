@@ -1,32 +1,26 @@
 package com.example.MonitoringInternetShop.Models;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
-import java.time.LocalDateTime;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
 public class Order {
-    @jakarta.persistence.Id
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private LocalDate orderDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
-    private LocalDateTime orderDate;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<OrderItem> orderItems;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private List<Product> products;
 
     public Long getId() {
         return id;
@@ -34,6 +28,14 @@ public class Order {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
 
     public User getUser() {
@@ -44,28 +46,18 @@ public class Order {
         this.user = user;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public BigDecimal getTotalAmount() {
+        return products.stream()
+                .map(Product::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
 }
+

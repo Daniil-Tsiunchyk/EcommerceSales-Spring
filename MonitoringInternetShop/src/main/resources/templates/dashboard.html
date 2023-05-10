@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/products}">Каталог товаров</a></li>
+            <li><a th:href="@{/orders}">Заказы</a></li>
+            <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
+            <li><a th:href="@{/settings}">Страница настроек</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Общая статистика</h1>
+    <p>Количество проданных товаров: <span th:text="${totalSoldProducts}"></span></p>
+    <p>Выручка: <span th:text="${totalRevenue}"></span></p>
+    <p>Средний чек: <span th:text="${averageCheck}"></span></p>
+
+    <h2>Топ-10 самых продаваемых товаров</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Количество продаж</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product, stat : ${topProducts}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${stat.count}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Последние 10 заказов</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Номер заказа</th>
+            <th>Дата заказа</th>
+            <th>Имя покупателя</th>
+            <th>Сумма заказа</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${latestOrders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.user.name}"></td>
+            <td th:text="${order.getTotalAmount()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
