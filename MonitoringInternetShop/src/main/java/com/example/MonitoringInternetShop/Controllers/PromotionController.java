@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PromotionController {
@@ -16,13 +16,15 @@ public class PromotionController {
     private PromotionService promotionService;
 
     @GetMapping("/promotions")
-    public String promotions(Model model) {
-        List<Promotion> activePromotions = promotionService.getActivePromotions();
-        List<Promotion> completedPromotions = promotionService.getCompletedPromotions();
-
-        model.addAttribute("activePromotions", activePromotions);
-        model.addAttribute("completedPromotions", completedPromotions);
-
+    public String showPromotionsPage(Model model) {
+        model.addAttribute("activePromotions", promotionService.getActivePromotions());
+        model.addAttribute("completedPromotions", promotionService.getCompletedPromotions());
         return "promotions";
     }
+    @PostMapping("/promotions/add")
+    public String addPromotion(@ModelAttribute Promotion promotion) {
+        promotionService.addPromotion(promotion);
+        return "redirect:/promotions";
+    }
+
 }

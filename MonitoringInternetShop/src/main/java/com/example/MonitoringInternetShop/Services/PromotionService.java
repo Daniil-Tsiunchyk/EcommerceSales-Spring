@@ -21,4 +21,9 @@ public class PromotionService {
     public List<Promotion> getCompletedPromotions() {
         return promotionRepository.findAllByEndDateBefore(LocalDate.now());
     }
+
+    public void addPromotion(Promotion promotion) {
+        promotionRepository.save(promotion);
+    }
+
 }
