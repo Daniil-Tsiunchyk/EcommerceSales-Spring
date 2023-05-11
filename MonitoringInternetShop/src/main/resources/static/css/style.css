@@ -166,3 +166,13 @@ form input, form textarea {
     padding: 10px;
     box-sizing: border-box;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+label, select, input, textarea {
+    margin-bottom: 10px;
+}

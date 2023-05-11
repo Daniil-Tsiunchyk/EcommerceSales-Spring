@@ -21,22 +21,70 @@
 <main>
     <h1>Каталог товаров</h1>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Название</th>
-            <th>Цена</th>
-            <th>Описание</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.description}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <section>
+        <h2>Фильтры и сортировка</h2>
+        <form th:action="@{/products}" method="get">
+            <label for="category">Категория:</label>
+            <select id="category" name="category">
+                <option value="">Все</option>
+            </select>
+
+            <label for="sort">Сортировать по:</label>
+            <select id="sort" name="sort">
+                <option value="price">Цена</option>
+                <option value="popularity">Популярность</option>
+            </select>
+
+            <button type="submit">Применить</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Список товаров</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Описание</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.description}"></td>
+                <td>
+                    <a th:href="@{/products/edit/{id}(id=${product.id})}">Редактировать</a>
+                    <a th:href="@{/products/delete/{id}(id=${product.id})}">Удалить</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Добавить товар</h2>
+        <form th:action="@{/products/add}" th:object="${product}" method="post">
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required>
+
+            <label for="price">Цена:</label>
+            <input type="number" id="price" name="price" th:field="*{price}" required>
+
+            <label for="description">Описание:</label>
+            <textarea id="description" name="description" th:field="*{description}" required></textarea>
+
+            <label for="category">Категория:</label>
+            <select id="category" name="category" th:field="*{category}">
+                <option value="">Все</option>
+                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+            </select>
+
+            <button type="submit">Добавить</button>
+        </form>
+    </section>
 </main>
 </body>
 </html>

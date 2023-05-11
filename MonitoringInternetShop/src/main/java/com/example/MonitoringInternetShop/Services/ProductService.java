@@ -5,13 +5,61 @@ import com.example.MonitoringInternetShop.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
+
     @Autowired
     private ProductRepository productRepository;
+
+    public List<Product> getFilteredAndSortedProducts(String category, String sortBy) {
+        List<Product> products = productRepository.findAll();
+
+        if (category != null) {
+            products = products.stream().filter(p -> p.getCategory().equals(category)).collect(Collectors.toList());
+        }
+
+        Comparator<Product> comparator = null;
+        if (sortBy != null) {
+            switch (sortBy) {
+                case "priceAsc":
+                    comparator = Comparator.comparing(Product::getPrice);
+                    break;
+                case "priceDesc":
+                    comparator = (p1, p2) -> p2.getPrice().compareTo(p1.getPrice());
+                    break;
+                case "popularity":
+                    comparator = (p1, p2) -> p2.getSales() - p1.getSales();
+                    break;
+            }
+        }
+
+        if (comparator != null) {
+            products = products.stream().sorted(comparator).collect(Collectors.toList());
+        }
+
+        return products;
+    }
+
+    public void saveProduct(Product product) {
+        productRepository.save(product);
+    }
+
+    public void updateProduct(Long id, Product product) {
+        Product existingProduct = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setCategory(product.getCategory());
+        productRepository.save(existingProduct);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 
     public List<Product> getTopProducts() {
         return productRepository.findAll().stream()
@@ -19,7 +67,6 @@ public class ProductService {
                 .limit(10)
                 .collect(Collectors.toList());
     }
-
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();

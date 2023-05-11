@@ -14,6 +14,15 @@ public class Product {
     private BigDecimal price;
     private int sales;
     private String description;
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String getDescription() {
         return description;
