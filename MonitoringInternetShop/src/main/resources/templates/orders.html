@@ -13,7 +13,7 @@
             <li><a th:href="@{/products}">Каталог товаров</a></li>
             <li><a th:href="@{/orders}">Заказы</a></li>
             <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
-            <li><a th:href="@{/settings}">Страница настроек</a></li>
+            <li><a th:href="@{/settings}">Настройки</a></li>
         </ul>
     </nav>
 </header>
@@ -36,5 +36,50 @@
     </tr>
     </tbody>
 </table>
+
+<main>
+    <section>
+        <h2>Фильтры и поиск</h2>
+        <form th:action="@{/orders}" method="get">
+            <label for="status">Статус:</label>
+            <select id="status" name="status">
+                <option value="">Все</option>
+                <option value="processing">В обработке</option>
+                <option value="sent">Отправлен</option>
+                <option value="completed">Завершен</option>
+            </select>
+
+            <label for="search">Поиск:</label>
+            <input type="text" id="search" name="search" placeholder="Поиск по номеру заказа или покупателю">
+
+            <button type="submit">Применить</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Список заказов</h2>
+        <table>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.orderDate}"></td>
+                <td th:text="${order.user.name}"></td>
+                <td th:text="${order.getTotalAmount()}"></td>
+                <td><a th:href="@{/orders/{id}(id=${order.id})}">Подробнее</a></td>
+                <td>
+                    <form th:action="@{/orders/update/{id}(id=${order.id})}" method="post">
+                        <select name="status" required>
+                            <option value="processing">В обработке</option>
+                            <option value="sent">Отправлен</option>
+                            <option value="completed">Завершен</option>
+                        </select>
+                        <button type="submit">Обновить статус</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
 </body>
 </html>

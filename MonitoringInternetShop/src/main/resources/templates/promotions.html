@@ -14,7 +14,7 @@
             <li><a th:href="@{/products}">Каталог товаров</a></li>
             <li><a th:href="@{/orders}">Заказы</a></li>
             <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
-            <li><a th:href="@{/settings}">Страница настроек</a></li>
+            <li><a th:href="@{/settings}">Настройки</a></li>
         </ul>
     </nav>
 </header>
@@ -39,8 +39,8 @@
         <td th:text="${promotion.endDate}"></td>
         <td th:text="${promotion.conditions}"></td>
         <td>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button>Редактировать</button>
+            <button>Удалить</button>
         </td>
     </tr>
     </tbody>

@@ -23,5 +23,13 @@ public class OrderService {
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
-}
 
+    public List<Order> searchOrders(String keyword) {
+        // TODO: Доработать
+        return null;
+    }
+
+    public void updateOrderStatus(Long id, String status) {
+        // TODO: Доработать
+    }
+}
