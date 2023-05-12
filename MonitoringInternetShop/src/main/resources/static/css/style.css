@@ -1,14 +1,42 @@
 body {
     font-family: Arial, sans-serif;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
     color: #333;
     background-color: #f5f5f5;
 }
 
+header {
+    background: #333;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
 h1, h2 {
     font-weight: 600;
-    margin-bottom: 20px;
+    color: #333;
 }
 
 h1 {
@@ -22,13 +50,13 @@ h2 {
 
 p {
     margin-bottom: 20px;
+    color: #333;
 }
 
 table {
-    border-collapse: collapse;
     width: 100%;
+    border-collapse: collapse;
     background-color: #fff;
-    margin-bottom: 40px;
 }
 
 th, td {
@@ -38,7 +66,8 @@ th, td {
 }
 
 th {
-    background-color: #f5f5f5;
+    background-color: #f2f2f2;
+    color: #333;
     font-weight: 600;
 }
 
@@ -46,125 +75,19 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
-header {
-    background-color: #333;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-nav {
-    display: flex;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-nav li {
-    margin-right: 20px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-main {
-    margin: 40px;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
-header {
-    background: #35424a;
-    padding: 20px;
-}
-
-header nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-header nav ul li {
-    display: inline;
-    margin-right: 10px;
-}
-
-header nav ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-h1, h2 {
-    margin-bottom: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
 button {
-    background-color: #4CAF50;
+    background-color: #333;
     border: none;
-    color: white;
+    color: #fff;
     padding: 10px 20px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 14px;
     margin: 4px 2px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
-}
-
-form {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-form label, form input, form textarea, form button {
-    margin-bottom: 20px;
-}
-
-form input, form textarea {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+    background-color: #444;
 }
 
 form {
@@ -175,4 +98,14 @@ form {
 
 label, select, input, textarea {
     margin-bottom: 10px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+main {
+    margin: 40px;
 }

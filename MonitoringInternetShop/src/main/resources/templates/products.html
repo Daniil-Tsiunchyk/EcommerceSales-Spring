@@ -56,8 +56,13 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.description}"></td>
                 <td>
-                    <a th:href="@{/products/edit/{id}(id=${product.id})}">Редактировать</a>
-                    <a th:href="@{/products/delete/{id}(id=${product.id})}">Удалить</a>
+                    <form th:action="@{/products/{id}/edit(id=${product.id})}" method="post">
+                        <input type="submit" value="Редактировать"/>
+                    </form>
+                    <form th:action="@{/products/{id}/delete(id=${product.id})}" method="post">
+                        <input type="submit" value="Удалить"/>
+                    </form>
+
                 </td>
             </tr>
             </tbody>
@@ -66,7 +71,7 @@
 
     <section>
         <h2>Добавить товар</h2>
-        <form th:action="@{/products/add}" th:object="${product}" method="post">
+        <form th:action="@{/products}" th:object="${product}" method="post">
             <label for="name">Название:</label>
             <input type="text" id="name" name="name" th:field="*{name}" required>
 

@@ -1,6 +1,7 @@
 package com.example.MonitoringInternetShop.Controllers;
 
 import com.example.MonitoringInternetShop.Models.Order;
+import com.example.MonitoringInternetShop.Models.Product;
 import com.example.MonitoringInternetShop.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -22,7 +24,6 @@ public class OrderController {
     public String orders(@RequestParam(required = false) String status, @RequestParam(required = false) String search, Model model) {
         List<Order> orders;
         if (status != null) {
-            // TODO: Доработать
             orders = null;
         } else if (search != null) {
             orders = orderService.searchOrders(search);
@@ -35,7 +36,6 @@ public class OrderController {
 
     @GetMapping("/orders/{id}")
     public String orderDetail(@PathVariable Long id, Model model) {
-        // TODO: Доработать
         return null;
     }
 
@@ -44,4 +44,20 @@ public class OrderController {
         orderService.updateOrderStatus(id, status);
         return "redirect:/orders";
     }
+
+    @PostMapping("/orders/new")
+    public String createOrder(@RequestParam String user, @RequestParam List<Long> products, @RequestParam int quantity, Model model) {
+        Order newOrder = new Order();
+        newOrder.setUser(userService.findByName(user));
+        newOrder.setProducts(productService.findProductsByIds(products));
+        newOrder.setOrderDate(LocalDate.now());
+
+        for (Product product : newOrder.getProducts()) {
+            product.setQuantity(quantity);
+        }
+
+        orderService.saveOrder(newOrder);
+        return "redirect:/orders";
+    }
+
 }

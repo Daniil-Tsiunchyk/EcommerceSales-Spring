@@ -25,11 +25,9 @@ public class OrderService {
     }
 
     public List<Order> searchOrders(String keyword) {
-        // TODO: Доработать
         return null;
     }
 
     public void updateOrderStatus(Long id, String status) {
-        // TODO: Доработать
     }
 }
