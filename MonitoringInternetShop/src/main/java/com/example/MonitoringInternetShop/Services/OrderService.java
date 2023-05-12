@@ -30,4 +30,8 @@ public class OrderService {
 
     public void updateOrderStatus(Long id, String status) {
     }
+
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
+    }
 }

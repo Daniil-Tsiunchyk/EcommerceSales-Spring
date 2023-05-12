@@ -86,13 +86,13 @@
             <label for="user">Покупатель:</label>
             <input type="text" id="user" name="user" placeholder="Введите имя покупателя" required>
 
-            <label for="products">Товары:</label>
-            <select id="products" name="products" multiple required>
-                <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
-            </select>
-
-            <label for="quantity">Количество:</label>
-            <input type="number" id="quantity" name="quantity" min="1" required>
+            <label>Товары:</label>
+            <div th:each="product : ${products}">
+                <input type="checkbox" id="product${productStat.index}" name="products" th:value="${product.id}">
+                <label th:for="${'product' + productStat.index}" th:text="${product.name}"></label>
+                <input type="number" id="quantity${productStat.index}" name="quantities" min="1">
+                <label th:for="${'quantity' + productStat.index}">Количество</label>
+            </div>
 
             <button type="submit">Создать заказ</button>
         </form>

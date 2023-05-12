@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ProductService {
@@ -70,5 +72,18 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+
+    public Product findById(Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+        return productOptional.orElse(null);
+    }
+
+    public List<Product> findProductsByIds(List<Long> ids) {
+        Iterable<Product> products = productRepository.findAllById(ids);
+        return StreamSupport
+                .stream(products.spliterator(), false)
+                .collect(Collectors.toList());
     }
 }

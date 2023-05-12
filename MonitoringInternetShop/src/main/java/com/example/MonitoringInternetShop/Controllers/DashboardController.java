@@ -1,6 +1,7 @@
 package com.example.MonitoringInternetShop.Controllers;
 
 import com.example.MonitoringInternetShop.Models.Order;
+import com.example.MonitoringInternetShop.Models.OrderItem;
 import com.example.MonitoringInternetShop.Models.Product;
 import com.example.MonitoringInternetShop.Services.OrderService;
 import com.example.MonitoringInternetShop.Services.ProductService;
@@ -30,7 +31,8 @@ public class DashboardController {
         model.addAttribute("latestOrders", latestOrders);
 
         int totalSoldProducts = latestOrders.stream()
-                .mapToInt(order -> order.getProducts().size())
+                .flatMap(order -> order.getOrderItems().stream())
+                .mapToInt(OrderItem::getQuantity)
                 .sum();
 
         BigDecimal totalRevenue = latestOrders.stream()
@@ -47,5 +49,4 @@ public class DashboardController {
 
         return "dashboard";
     }
-
 }
