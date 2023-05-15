@@ -27,15 +27,9 @@ public class ProductService {
         Comparator<Product> comparator = null;
         if (sortBy != null) {
             switch (sortBy) {
-                case "priceAsc":
-                    comparator = Comparator.comparing(Product::getPrice);
-                    break;
-                case "priceDesc":
-                    comparator = (p1, p2) -> p2.getPrice().compareTo(p1.getPrice());
-                    break;
-                case "popularity":
-                    comparator = (p1, p2) -> p2.getSales() - p1.getSales();
-                    break;
+                case "priceAsc" -> comparator = Comparator.comparing(Product::getPrice);
+                case "priceDesc" -> comparator = (p1, p2) -> p2.getPrice().compareTo(p1.getPrice());
+                case "popularity" -> comparator = (p1, p2) -> p2.getSales() - p1.getSales();
             }
         }
 

@@ -17,4 +17,12 @@ public class UserService {
         Optional<User> userOptional = userRepository.findByName(name);
         return userOptional.orElse(null);
     }
+
+    public User validateUser(String username, String password) {
+        User user = userRepository.findByLogin(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <style>
+        body {
+            background-color: lightgrey;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container input, .form-container button {
+            width: 200px;
+            height: 35px;
+            margin-bottom: 10px;
+        }
+
+        p.link-text {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        p.link-text a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p.link-text a:hover {
+            color: #007BFF;
+            text-decoration: underline;
+        }
+
+    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li>test.ux@gmail.com</li>
+            <li>375 (44) 123-45-56</li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="form-container">
+        <h1>Вход</h1>
+        <form th:action="@{/login}" method="post">
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Войти</button>
+        </form>
+        <p class="link-text">Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
+    </div>
+</main>
+<footer class="footer">
+    <p>Информация о компании</p>
+</footer>
+</body>
+</html>
