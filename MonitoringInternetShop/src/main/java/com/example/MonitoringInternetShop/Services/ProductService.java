@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ProductService {
@@ -74,14 +73,32 @@ public class ProductService {
         return productOptional.orElse(null);
     }
 
-    public List<Product> findProductsByIds(List<Long> ids) {
-        Iterable<Product> products = productRepository.findAllById(ids);
-        return StreamSupport
-                .stream(products.spliterator(), false)
-                .collect(Collectors.toList());
-    }
-
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    public void incrementProductStock(Long id, Integer incrementAmount) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            product.setStock(product.getStock() + incrementAmount);
+            productRepository.save(product);
+        } else {
+            throw new RuntimeException("Продукт не найден с id: " + id);
+        }
+    }
+
+    public void decrementProductStock(Long id, Integer decrementAmount) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            if(product.getStock() >= decrementAmount) {
+                product.setStock(product.getStock() - decrementAmount);
+            } else {
+                throw new RuntimeException("Товара на складе недостаточн у d: " + id);
+            }
+        } else {
+            throw new RuntimeException("Продукт не найден с id: " + id);
+        }
     }
 }

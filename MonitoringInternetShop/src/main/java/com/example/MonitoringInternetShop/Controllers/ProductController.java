@@ -43,6 +43,17 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/products";
     }
+    @PostMapping("/{id}/incrementStock")
+    public String incrementProductStock(@PathVariable("id") Long id, @RequestParam("incrementAmount") Integer incrementAmount) {
+        productService.incrementProductStock(id, incrementAmount);
+        return "redirect:/products";
+    }
+
+    @PostMapping("/{id}/decrementStock")
+    public String decrementProductStock(@PathVariable("id") Long id, @RequestParam("decrementAmount") Integer decrementAmount) {
+        productService.decrementProductStock(id, decrementAmount);
+        return "redirect:/products";
+    }
 
 
 }

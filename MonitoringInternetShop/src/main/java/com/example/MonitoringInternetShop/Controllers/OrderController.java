@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class OrderController {
     }
 
     @PostMapping("/createOrder")
-    public String handleCreateOrder(@RequestParam List<Long> productIds, @RequestParam List<Integer> quantities, HttpSession session) {
+    public String handleCreateOrder(@RequestParam List<Long> productIds, @RequestParam List<Integer> quantities, HttpSession session, RedirectAttributes redirectAttrs) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "redirect:/login";
@@ -103,9 +104,17 @@ public class OrderController {
             Long productId = productIds.get(i);
             Product product = productService.getProductById(productId);
 
+            int quantity = quantities.get(i);
+            if (product.getStock() < quantity) {
+                redirectAttrs.addFlashAttribute("error", "Недостаточное количество товара на складе для товара " + product.getName());
+                return "redirect:/createOrder";
+            }
+
+            product.setStock(product.getStock() - quantity);
+
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
-            orderItem.setQuantity(quantities.get(i));
+            orderItem.setQuantity(quantity);
             orderItem.setOrder(order);
 
             orderItems.add(orderItem);
@@ -117,4 +126,5 @@ public class OrderController {
 
         return "redirect:/orders";
     }
+
 }

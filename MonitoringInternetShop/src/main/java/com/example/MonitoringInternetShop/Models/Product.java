@@ -15,6 +15,15 @@ public class Product {
     private int sales;
     private String description;
     private String category;
+    private int stock;
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
     public String getCategory() {
         return category;

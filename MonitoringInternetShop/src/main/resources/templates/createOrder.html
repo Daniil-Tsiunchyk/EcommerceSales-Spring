@@ -2,29 +2,64 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Создать заказ</title>
-    <!-- Add your CSS here -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/createOrder.html}">Новый заказ</a></li>
+            <li><a th:href="@{/createOrder.html}">Мои заказы</a></li>
+            <li><a th:href="@{/login}">Выйти</a></li>
+        </ul>
+    </nav>
+</header>
+<!-- Display error message, if any -->
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
 <h1>Создать заказ</h1>
-<form th:action="@{/createOrder}" method="post">
+<form id="orderForm" th:action="@{/createOrder}" method="post"
+      onsubmit="return confirm('Вы уверены, что хотите сделать заказ?')">
     <table>
         <thead>
         <tr>
             <th>Товар</th>
+            <th>Описание</th>
+            <th>Категория</th>
+            <th>Цена</th>
             <th>Количество</th>
+            <th>Сумма</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product : ${products}">
+        <tr th:each="product, stat : ${products}">
             <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.category}"></td>
+            <td th:id="'price'+${stat.index}" th:text="${product.price}"></td>
             <td>
                 <input type="hidden" th:name="'productIds'" th:value="${product.id}"/>
-                <input type="number" th:name="'quantities'" min="1" value="1"/>
+                <input type="number" th:id="'quantity'+${stat.index}" th:name="'quantities'" min="1"
+                       th:max="${product.stock}" value="1" onchange="calculateSum(${stat.index})"/>
             </td>
+            <td th:id="'sum'+${stat.index}"></td>
         </tr>
         </tbody>
     </table>
     <button type="submit">Создать заказ</button>
 </form>
+<script>
+    $(document).ready(function () {
+        $("[id^='quantity']").each(function (index) {
+            calculateSum(index);
+        });
+    });
+
+    function calculateSum(index) {
+        var quantity = document.getElementById('quantity' + index).value;
+        var price = document.getElementById('price' + index).innerText;
+        document.getElementById('sum' + index).innerText = quantity * price;
+    }
+</script>
 </body>
 </html>

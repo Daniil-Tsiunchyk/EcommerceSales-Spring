@@ -36,7 +36,7 @@ public class LoginController {
                     return "login";
                 }
             } else {
-                model.addAttribute("error", "Ваш аккаунт не активен, обратитесь к администратору для активации");
+                model.addAttribute("error", "Ваш аккаунт не активирован, обратитесь к администратору для активации");
                 return "login";
             }
         } else {
