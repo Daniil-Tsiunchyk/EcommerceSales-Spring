@@ -14,13 +14,11 @@ public class SettingsController {
 
     @GetMapping("/settings")
     public String settings(Model model) {
-        // Получение данных для отображения на странице настроек
         return "settings";
     }
 
     @PostMapping("/settings")
-    public String updateSettings(/*Параметры для обновления настроек*/) {
-        // Обновление настроек
+    public String updateSettings() {
         return "redirect:/settings";
     }
 }

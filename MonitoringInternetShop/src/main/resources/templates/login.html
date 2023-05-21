@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Вход</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <style>
         body {
             background-color: lightgrey;
@@ -56,7 +57,6 @@
         }
 
     </style>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <header>
@@ -69,7 +69,7 @@
 </header>
 <main>
     <div class="form-container">
-        <h1>Вход</h1>
+        <h1>Авторизация</h1>
         <form th:action="@{/login}" method="post">
             <label for="username">Логин:</label>
             <input type="text" id="username" name="username" required>
@@ -77,8 +77,10 @@
             <input type="password" id="password" name="password" required>
             <button type="submit">Войти</button>
         </form>
+        <p th:if="${error}" th:text="${error}" style="color: red;"></p>
         <p class="link-text">Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
     </div>
+
 </main>
 <footer class="footer">
     <p>Информация о компании</p>

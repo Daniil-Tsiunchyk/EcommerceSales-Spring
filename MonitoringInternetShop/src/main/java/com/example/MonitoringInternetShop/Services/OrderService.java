@@ -1,11 +1,16 @@
 package com.example.MonitoringInternetShop.Services;
 
 import com.example.MonitoringInternetShop.Models.Order;
+import com.example.MonitoringInternetShop.Models.OrderItem;
+import com.example.MonitoringInternetShop.Models.Product;
+import com.example.MonitoringInternetShop.Repositories.OrderItemRepository;
 import com.example.MonitoringInternetShop.Repositories.OrderRepository;
+import com.example.MonitoringInternetShop.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,4 +39,5 @@ public class OrderService {
     public Order saveOrder(Order order) {
         return orderRepository.save(order);
     }
+
 }

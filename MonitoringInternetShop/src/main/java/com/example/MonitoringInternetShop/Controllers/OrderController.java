@@ -3,16 +3,15 @@ package com.example.MonitoringInternetShop.Controllers;
 import com.example.MonitoringInternetShop.Models.Order;
 import com.example.MonitoringInternetShop.Models.OrderItem;
 import com.example.MonitoringInternetShop.Models.Product;
+import com.example.MonitoringInternetShop.Models.User;
 import com.example.MonitoringInternetShop.Services.OrderService;
 import com.example.MonitoringInternetShop.Services.ProductService;
 import com.example.MonitoringInternetShop.Services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -75,5 +74,47 @@ public class OrderController {
         return "redirect:/orders";
     }
 
+    @GetMapping("/createOrder")
+    public String showCreateOrderPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
 
+        List<Product> products = productService.getAllProducts();
+        model.addAttribute("products", products);
+
+        return "createOrder";
+    }
+
+    @PostMapping("/createOrder")
+    public String handleCreateOrder(@RequestParam List<Long> productIds, @RequestParam List<Integer> quantities, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        Order order = new Order();
+        order.setOrderDate(LocalDate.now());
+        order.setUser(user);
+
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (int i = 0; i < productIds.size(); i++) {
+            Long productId = productIds.get(i);
+            Product product = productService.getProductById(productId);
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.setProduct(product);
+            orderItem.setQuantity(quantities.get(i));
+            orderItem.setOrder(order);
+
+            orderItems.add(orderItem);
+        }
+
+        order.setOrderItems(orderItems);
+
+        orderService.saveOrder(order);
+
+        return "redirect:/orders";
+    }
 }

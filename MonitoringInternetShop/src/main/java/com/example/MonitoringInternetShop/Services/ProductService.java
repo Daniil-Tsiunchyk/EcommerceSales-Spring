@@ -80,4 +80,8 @@ public class ProductService {
                 .stream(products.spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Создать заказ</title>
+    <!-- Add your CSS here -->
+</head>
+<body>
+<h1>Создать заказ</h1>
+<form th:action="@{/createOrder}" method="post">
+    <table>
+        <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Количество</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}"></td>
+            <td>
+                <input type="hidden" th:name="'productIds'" th:value="${product.id}"/>
+                <input type="number" th:name="'quantities'" min="1" value="1"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit">Создать заказ</button>
+</form>
+</body>
+</html>
