@@ -1,16 +1,13 @@
 package com.example.MonitoringInternetShop.Services;
 
 import com.example.MonitoringInternetShop.Models.Order;
-import com.example.MonitoringInternetShop.Models.OrderItem;
-import com.example.MonitoringInternetShop.Models.Product;
-import com.example.MonitoringInternetShop.Repositories.OrderItemRepository;
+import com.example.MonitoringInternetShop.Models.User;
 import com.example.MonitoringInternetShop.Repositories.OrderRepository;
-import com.example.MonitoringInternetShop.Repositories.ProductRepository;
+import com.example.MonitoringInternetShop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +15,8 @@ import java.util.stream.Collectors;
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Order> getLatestOrders() {
         return orderRepository.findAll(Sort.by(Sort.Direction.DESC, "orderDate")).stream()
@@ -40,4 +39,14 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    @Autowired
+    public OrderService(UserRepository userRepository, OrderRepository orderRepository) {
+        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
+    }
+
+    public List<Order> findOrdersByUser(User user) {
+        return orderRepository.findByUser(user);
+    }
 }
+

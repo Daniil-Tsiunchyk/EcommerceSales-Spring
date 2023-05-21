@@ -80,29 +80,45 @@
     </section>
 
     <section>
-        <h2>Добавить товар</h2>
-        <form th:action="@{/products}" th:object="${product}" method="post">
-            <label for="name">Название:</label>
-            <input type="text" id="name" name="name" th:field="*{name}" required>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h2>Добавить товар</h2>
+                <form th:action="@{/products}" th:object="${product}" method="post">
+                    <label for="name">Название:</label>
+                    <input type="text" id="name" name="name" th:field="*{name}" required>
 
-            <label for="price">Цена:</label>
-            <input type="number" id="price" name="price" th:field="*{price}" required>
+                    <label for="price">Цена:</label>
+                    <input type="number" id="price" name="price" th:field="*{price}" required>
 
-            <label for="description">Описание:</label>
-            <textarea id="description" name="description" th:field="*{description}" required></textarea>
+                    <label for="description">Описание:</label>
+                    <textarea id="description" name="description" th:field="*{description}" required></textarea>
 
-            <label for="category">Категория:</label>
-            <select id="category" name="category" th:field="*{category}">
-                <option value="">Все</option>
-                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
-            </select>
+                    <label for="category">Категория:</label>
+                    <select id="category" name="category" th:field="*{category}">
+                        <option value="">Все</option>
+                        <option th:each="category : ${categories}" th:value="${category}"
+                                th:text="${category}"></option>
+                    </select>
 
-            <label for="stock">Количество:</label>
-            <input type="number" id="stock" name="stock" th:field="*{stock}" required>
+                    <label for="stock">Количество:</label>
+                    <input type="number" id="stock" name="stock" th:field="*{stock}" required>
 
-            <button type="submit">Добавить</button>
-        </form>
+                    <button type="submit">Добавить</button>
+                </form>
+            </div>
+<!--            <div>-->
+<!--                <h2>Добавить категорию</h2>-->
+<!--                <form th:action="@{/categories}" th:object="${category}" method="post">-->
+<!--                    <label for="name">Название:</label>-->
+<!--                    <input type="text" id="name" name="name" th:field="*{name}" required>-->
+
+<!--                    <button type="submit">Добавить</button>-->
+<!--                </form>-->
+<!--            </div>-->
+        </div>
     </section>
+</main>
+</section>
 </main>
 </body>
 </html>

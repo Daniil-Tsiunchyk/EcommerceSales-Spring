@@ -3,19 +3,109 @@
 <head>
     <title>Создать заказ</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f3f3f3;
+        }
+
+        form {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #333;
+            color: white;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button, nav a {
+            transition: all 0.3s ease;
+        }
+
+        button:hover, nav a:hover {
+            transform: scale(1.05);
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: #f3f3f3;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #333;
+            color: white;
+            padding: 10px 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            max-width: 800px;
+            list-style: none;
+            padding: 0;
+        }
+
+        form {
+            width: 80%;
+            max-width: 800px;
+            margin-top: 60px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
     <nav>
         <ul>
-            <li><a th:href="@{/createOrder.html}">Новый заказ</a></li>
-            <li><a th:href="@{/createOrder.html}">Мои заказы</a></li>
+            <li><a th:href="@{/createOrder}">Новый заказ</a></li>
+            <li><a th:href="@{/user-orders}">Мои заказы</a></li>
             <li><a th:href="@{/login}">Выйти</a></li>
         </ul>
     </nav>
 </header>
-<!-- Display error message, if any -->
 <p th:if="${error}" th:text="${error}" style="color: red;"></p>
 <h1>Создать заказ</h1>
 <form id="orderForm" th:action="@{/createOrder}" method="post"
@@ -26,9 +116,10 @@
             <th>Товар</th>
             <th>Описание</th>
             <th>Категория</th>
-            <th>Цена</th>
+            <th>Цена за шт.</th>
+            <th>На складе</th>
             <th>Количество</th>
-            <th>Сумма</th>
+            <th>Цена</th>
         </tr>
         </thead>
         <tbody>
@@ -37,6 +128,7 @@
             <td th:text="${product.description}"></td>
             <td th:text="${product.category}"></td>
             <td th:id="'price'+${stat.index}" th:text="${product.price}"></td>
+            <td th:text="${product.stock}"></td>
             <td>
                 <input type="hidden" th:name="'productIds'" th:value="${product.id}"/>
                 <input type="number" th:id="'quantity'+${stat.index}" th:name="'quantities'" min="1"
@@ -45,6 +137,7 @@
             <td th:id="'sum'+${stat.index}"></td>
         </tr>
         </tbody>
+
     </table>
     <button type="submit">Создать заказ</button>
 </form>
@@ -60,6 +153,15 @@
         var price = document.getElementById('price' + index).innerText;
         document.getElementById('sum' + index).innerText = quantity * price;
     }
+
+    $(document).ready(function () {
+        if ($('p').is(':visible')) {
+            $('html, body').animate({
+                scrollTop: $("p").offset().top
+            }, 1000);
+        }
+    });
+
 </script>
 </body>
 </html>

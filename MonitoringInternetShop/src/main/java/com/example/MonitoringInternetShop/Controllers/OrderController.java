@@ -111,6 +111,7 @@ public class OrderController {
             }
 
             product.setStock(product.getStock() - quantity);
+            product.setSales(product.getSales() + quantity);
 
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
@@ -124,7 +125,19 @@ public class OrderController {
 
         orderService.saveOrder(order);
 
-        return "redirect:/orders";
+        return "redirect:/user-orders";
+    }
+
+    @GetMapping("/user-orders")
+    public String viewOrders(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        List<Order> orders = orderService.findOrdersByUser(user);
+        model.addAttribute("orders", orders);
+        return "user-orders";
     }
 
 }

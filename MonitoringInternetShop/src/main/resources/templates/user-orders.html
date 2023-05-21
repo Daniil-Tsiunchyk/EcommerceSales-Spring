@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Мои заказы</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/createOrder.html}">Новый заказ</a></li>
+            <li><a th:href="@{/myOrders.html}">Мои заказы</a></li>
+            <li><a th:href="@{/login}">Выйти</a></li>
+        </ul>
+    </nav>
+</header>
+<h1>Мои заказы</h1>
+<div th:each="order : ${orders}">
+    <h2>Заказ №<span th:text="${order.id}"></span></h2>
+    <h3>Дата заказа: <span th:text="${order.orderDate}"></span></h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Количество</th>
+            <th>Цена за шт.</th>
+            <th>Общая стоимость</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${order.orderItems}">
+            <td th:text="${item.product.name}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.product.price} + р."></td>
+            <td th:text="${item.getTotalPrice()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Общая стоимость заказа: <span th:text="${order.getTotalAmount()}"></span></h3>
+    <hr/>
+</div>
+</body>
+</html>

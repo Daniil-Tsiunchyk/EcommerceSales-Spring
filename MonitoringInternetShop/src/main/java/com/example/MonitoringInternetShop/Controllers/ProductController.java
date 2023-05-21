@@ -1,6 +1,8 @@
 package com.example.MonitoringInternetShop.Controllers;
 
+import com.example.MonitoringInternetShop.Models.Category;
 import com.example.MonitoringInternetShop.Models.Product;
+import com.example.MonitoringInternetShop.Services.CategoryService;
 import com.example.MonitoringInternetShop.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +17,20 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
+    @Autowired
+    private  CategoryService categoryService;
     @GetMapping
     public String products(Model model,
                            @RequestParam(name = "category", required = false) String category,
                            @RequestParam(name = "sortBy", required = false) String sortBy) {
         List<Product> products = productService.getFilteredAndSortedProducts(category, sortBy);
+        List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("products", products);
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", categories);
         return "products";
     }
+
 
     @PostMapping
     public String createProduct(@ModelAttribute Product product) {
@@ -43,6 +49,7 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/products";
     }
+
     @PostMapping("/{id}/incrementStock")
     public String incrementProductStock(@PathVariable("id") Long id, @RequestParam("incrementAmount") Integer incrementAmount) {
         productService.incrementProductStock(id, incrementAmount);
