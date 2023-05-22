@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit Order</title>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <header>
@@ -17,14 +19,14 @@
         </ul>
     </nav>
 </header>
-<h1>Edit Order</h1>
-<form action="#" th:action="@{/orders/edit/{id}(id=${order.id})}" th:object="${order}" method="post">
-    <input type="hidden" th:field="*{id}"/>
-    <select th:field="*{product}">
-        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
-    </select>
-    <input type="number" th:field="*{quantity}" placeholder="Quantity"/>
-    <input type="submit" value="Update Order"/>
+<h1>Редактирование пользователя</h1>
+<form th:action="@{/userManagement/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
+    <label>Имя: <input type="text" th:field="*{name}"/></label>
+    <label>Почта: <input type="text" th:field="*{mail}"/></label>
+    <label>Логин: <input type="text" th:field="*{login}"/></label>
+    <label>Роль: <input type="text" th:field="*{role}"/></label>
+    <label>Статус: <input type="text" th:field="*{status}"/></label>
+    <input type="submit" value="Обновить"/>
 </form>
 </body>
 </html>

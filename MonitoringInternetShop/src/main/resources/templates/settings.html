@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Настройки</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <meta charset="UTF-8">
+    <title>Настройки</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <header>
-  <nav>
-    <ul>
-      <li><a th:href="@{/dashboard}">Аналитика</a></li>
-      <li><a th:href="@{/products}">Каталог товаров</a></li>
-      <li><a th:href="@{/orders}">Заказы</a></li>
-      <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
-      <li><a th:href="@{/settings}">Настройки</a></li>
-      <li><a th:href="@{/login}">Выйти</a></li>
-    </ul>
-  </nav>
+    <nav>
+        <ul>
+            <li><a th:href="@{/dashboard}">Аналитика</a></li>
+            <li><a th:href="@{/products}">Каталог товаров</a></li>
+            <li><a th:href="@{/orders}">Заказы</a></li>
+            <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
+            <li><a th:href="@{/userManagement}">Управление пользователями</a></li>
+            <li><a th:href="@{/settings}">Настройки аккаунта</a></li>
+            <li><a th:href="@{/login}">Выйти</a></li>
+        </ul>
+    </nav>
 </header>
 <h1>Настройки</h1>
 
-<!-- Форма изменения личных данных администратора -->
-<!-- Форма управления доступом и ролями пользователей -->
-<!-- Форма настроек интеграции с внешними сервисами -->
+<form th:action="@{/settings}" th:object="${user}" method="post">
+    <label>Имя: <input type="text" th:field="*{name}"/></label>
+    <label>Email: <input type="text" th:field="*{mail}"/></label>
+    <label>Логин: <input type="text" th:field="*{login}"/></label>
+    <label>Роль: <input type="text" th:field="*{role}"/></label>
+    <label>Статус: <input type="text" th:field="*{status}"/></label>
+    <input type="submit" value="Обновить"/>
+</form>
 
 </body>
 </html>

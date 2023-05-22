@@ -26,7 +26,9 @@ public class LoginController {
         User user = userService.validateUser(username, password);
         if (user != null) {
             if ("active".equalsIgnoreCase(user.getStatus())) {
-                session.setAttribute("user", user);
+                session.setAttribute("login", user.getLogin());
+                session.setAttribute("id", user.getId());
+
                 if ("admin".equalsIgnoreCase(user.getRole())) {
                     return "redirect:/dashboard";
                 } else if ("user".equalsIgnoreCase(user.getRole())) {
@@ -44,4 +46,5 @@ public class LoginController {
             return "login";
         }
     }
+
 }

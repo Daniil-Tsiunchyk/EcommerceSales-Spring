@@ -13,7 +13,8 @@
             <li><a th:href="@{/products}">Каталог товаров</a></li>
             <li><a th:href="@{/orders}">Заказы</a></li>
             <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
-            <li><a th:href="@{/settings}">Настройки</a></li>
+            <li><a th:href="@{/userManagement}">Управление пользователями</a></li>
+            <li><a th:href="@{/settings}">Настройки аккаунта</a></li>
             <li><a th:href="@{/login}">Выйти</a></li>
         </ul>
     </nav>
@@ -106,15 +107,15 @@
                     <button type="submit">Добавить</button>
                 </form>
             </div>
-<!--            <div>-->
-<!--                <h2>Добавить категорию</h2>-->
-<!--                <form th:action="@{/categories}" th:object="${category}" method="post">-->
-<!--                    <label for="name">Название:</label>-->
-<!--                    <input type="text" id="name" name="name" th:field="*{name}" required>-->
+            <!--            <div>-->
+            <!--                <h2>Добавить категорию</h2>-->
+            <!--                <form th:action="@{/categories}" th:object="${category}" method="post">-->
+            <!--                    <label for="name">Название:</label>-->
+            <!--                    <input type="text" id="name" name="name" th:field="*{name}" required>-->
 
-<!--                    <button type="submit">Добавить</button>-->
-<!--                </form>-->
-<!--            </div>-->
+            <!--                    <button type="submit">Добавить</button>-->
+            <!--                </form>-->
+            <!--            </div>-->
         </div>
     </section>
 </main>

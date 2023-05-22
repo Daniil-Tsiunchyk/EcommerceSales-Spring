@@ -14,13 +14,14 @@
             <li><a th:href="@{/products}">Каталог товаров</a></li>
             <li><a th:href="@{/orders}">Заказы</a></li>
             <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
-            <li><a th:href="@{/settings}">Настройки</a></li>
+            <li><a th:href="@{/userManagement}">Управление пользователями</a></li>
+            <li><a th:href="@{/settings}">Настройки аккаунта</a></li>
             <li><a th:href="@{/login}">Выйти</a></li>
         </ul>
     </nav>
 </header>
 
-<h2>Активные акции и скидки</h2>
+<h3>Активные акции и скидки:</h3>
 <table>
     <thead>
     <tr>
@@ -45,7 +46,7 @@
     </tbody>
 </table>
 
-<h2>Завершенные акции и скидки</h2>
+<h3>Завершенные акции и скидки:</h3>
 <table>
     <thead>
     <tr>
@@ -65,7 +66,7 @@
     </tbody>
 </table>
 
-<h2>Добавить акцию или скидку</h2>
+<h3>Добавить акцию или скидку:</h3>
 <form th:action="@{/promotions/add}" th:object="${promotion}" method="post">
     <label for="name">Название:</label>
     <input type="text" id="name" name="name" required>

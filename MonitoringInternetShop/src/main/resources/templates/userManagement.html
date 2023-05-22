@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление пользователями</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/dashboard}">Аналитика</a></li>
+            <li><a th:href="@{/products}">Каталог товаров</a></li>
+            <li><a th:href="@{/orders}">Заказы</a></li>
+            <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
+            <li><a th:href="@{/userManagement}">Управление пользователями</a></li>
+            <li><a th:href="@{/settings}">Настройки аккаунта</a></li>
+            <li><a th:href="@{/login}">Выйти</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h1>Управление пользователями</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Почта</th>
+        <th>Логин</th>
+        <th>Роль</th>
+        <th>Статус</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.mail}"></td>
+        <td th:text="${user.login}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.status}"></td>
+        <td>
+            <a th:href="@{/userManagement/edit/{id}(id=${user.id})}">Изменить</a> |
+            <a th:href="@{/userManagement/delete/{id}(id=${user.id})}">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
