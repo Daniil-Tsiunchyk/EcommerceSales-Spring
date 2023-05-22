@@ -75,7 +75,7 @@ public class OrderController {
         return "redirect:/orders";
     }
 
-    @GetMapping("/createOrder")
+    @GetMapping("/create-order")
     public String showCreateOrderPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -85,10 +85,10 @@ public class OrderController {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
 
-        return "createOrder";
+        return "create-order";
     }
 
-    @PostMapping("/createOrder")
+    @PostMapping("/create-order")
     public String handleCreateOrder(@RequestParam List<Long> productIds, @RequestParam List<Integer> quantities, HttpSession session, RedirectAttributes redirectAttrs) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -107,7 +107,7 @@ public class OrderController {
             int quantity = quantities.get(i);
             if (product.getStock() < quantity) {
                 redirectAttrs.addFlashAttribute("error", "Недостаточное количество товара на складе для товара " + product.getName());
-                return "redirect:/createOrder";
+                return "redirect:/create-order";
             }
 
             product.setStock(product.getStock() - quantity);
@@ -122,6 +122,7 @@ public class OrderController {
         }
 
         order.setOrderItems(orderItems);
+        order.setStatus("На рассмотрении");
 
         orderService.saveOrder(order);
 

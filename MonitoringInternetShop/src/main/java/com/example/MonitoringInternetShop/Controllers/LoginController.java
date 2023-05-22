@@ -30,7 +30,7 @@ public class LoginController {
                 if ("admin".equalsIgnoreCase(user.getRole())) {
                     return "redirect:/dashboard";
                 } else if ("user".equalsIgnoreCase(user.getRole())) {
-                    return "redirect:/createOrder";
+                    return "redirect:/create-order";
                 } else {
                     model.addAttribute("error", "Неизвестная роль пользователя");
                     return "login";

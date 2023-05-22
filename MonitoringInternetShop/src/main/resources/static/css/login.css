@@ -1,0 +1,51 @@
+body {
+    background-color: lightgrey;
+}
+
+header {
+    background-color: black;
+    color: white;
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container input, .form-container button {
+    width: 200px;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+p.link-text {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+p.link-text a {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p.link-text a:hover {
+    color: #007BFF;
+    text-decoration: underline;
+}
+

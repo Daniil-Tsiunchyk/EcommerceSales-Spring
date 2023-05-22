@@ -8,8 +8,8 @@
 <header>
     <nav>
         <ul>
-            <li><a th:href="@{/createOrder.html}">Новый заказ</a></li>
-            <li><a th:href="@{/myOrders.html}">Мои заказы</a></li>
+            <li><a th:href="@{/create-order}">Новый заказ</a></li>
+            <li><a th:href="@{/user-orders}">Мои заказы</a></li>
             <li><a th:href="@{/login}">Выйти</a></li>
         </ul>
     </nav>
@@ -36,6 +36,7 @@
         </tr>
         </tbody>
     </table>
+    <h3>Текущий статус заказа: <span th:text="${order.status}"></span></h3>
     <h3>Общая стоимость заказа: <span th:text="${order.getTotalAmount()}"></span></h3>
     <hr/>
 </div>

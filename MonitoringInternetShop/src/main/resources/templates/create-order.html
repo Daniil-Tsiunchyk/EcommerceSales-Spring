@@ -3,104 +3,14 @@
 <head>
     <title>Создать заказ</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f3f3f3;
-        }
-
-        form {
-            width: 80%;
-            max-width: 800px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: #333;
-            color: white;
-            padding: 10px 0;
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-        }
-
-        button, nav a {
-            transition: all 0.3s ease;
-        }
-
-        button:hover, nav a:hover {
-            transform: scale(1.05);
-        }
-
-        tbody tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background: #f3f3f3;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: #333;
-            color: white;
-            padding: 10px 0;
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: space-evenly;
-            width: 100%;
-            max-width: 800px;
-            list-style: none;
-            padding: 0;
-        }
-
-        form {
-            width: 80%;
-            max-width: 800px;
-            margin-top: 60px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user-create.css}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
     <nav>
         <ul>
-            <li><a th:href="@{/createOrder}">Новый заказ</a></li>
+            <li><a th:href="@{/create-order}">Новый заказ</a></li>
             <li><a th:href="@{/user-orders}">Мои заказы</a></li>
             <li><a th:href="@{/login}">Выйти</a></li>
         </ul>
@@ -108,7 +18,7 @@
 </header>
 <p th:if="${error}" th:text="${error}" style="color: red;"></p>
 <h1>Создать заказ</h1>
-<form id="orderForm" th:action="@{/createOrder}" method="post"
+<form id="orderForm" th:action="@{/create-order}" method="post"
       onsubmit="return confirm('Вы уверены, что хотите сделать заказ?')">
     <table>
         <thead>
