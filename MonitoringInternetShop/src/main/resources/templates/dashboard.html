@@ -64,7 +64,7 @@
         </ul>
     </nav>
 </header>
-<main>
+<main id="report">
     <div class="analytics">
         <h1>Аналитика</h1>
 
@@ -83,27 +83,30 @@
                 <canvas id="salesChart"></canvas>
             </div>
         </div>
+    </div>
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 
-        <div class="top-products">
-            <h2>Топ-10 самых продаваемых товаров</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Название товара</th>
-                    <th>Количество продаж</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="product : ${topProducts}">
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.sales}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
+    <div class="top-products">
+        <h2>Топ-10 самых продаваемых товаров</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Название товара</th>
+                <th>Количество продаж</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${topProducts}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.sales}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </main>
+<footer>
+    <button id="save-report-button">Сохранить отчет</button>
+</footer>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var salesData = /*[[${salesData}]]*/ [];
@@ -153,8 +156,15 @@
     });
     /*]]>*/
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<script>
+    document.getElementById('save-report-button').addEventListener('click', function () {
+        var pdf = new jsPDF();
+        var report = document.getElementById('report');
+        pdf.fromHTML(report, 10, 10, {'width': 180});
+        pdf.save('report.pdf');
+    });
+</script>
 
-</body>
-</html>
 </body>
 </html>
