@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>Управление акциями и скидками</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <style>
+        main h1, main h2 {
+            color: black;
+        }
+
+        h1, h2 {
+            color: black;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,7 +30,7 @@
     </nav>
 </header>
 
-<h3>Активные акции и скидки:</h3>
+<h2>Активные акции и скидки</h2>
 <table>
     <thead>
     <tr>
@@ -46,7 +55,7 @@
     </tbody>
 </table>
 
-<h3>Завершенные акции и скидки:</h3>
+<h2>Завершенные акции и скидки</h2>
 <table>
     <thead>
     <tr>
@@ -66,7 +75,7 @@
     </tbody>
 </table>
 
-<h3>Добавить акцию или скидку:</h3>
+<h2>Добавить акцию или скидку</h2>
 <form th:action="@{/promotions/add}" th:object="${promotion}" method="post">
     <label for="name">Название:</label>
     <input type="text" id="name" name="name" required>
