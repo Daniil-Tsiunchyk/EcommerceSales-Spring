@@ -41,13 +41,13 @@
         <tr th:each="item : ${order.orderItems}">
             <td th:text="${item.product.name}"></td>
             <td th:text="${item.quantity}"></td>
-            <td th:text="${item.product.price} + р."></td>
-            <td th:text="${item.getTotalPrice()}"></td>
+            <td th:text="${item.product.price}+р."></td>
+            <td th:text="${item.getTotalPrice()}+р."></td>
         </tr>
         </tbody>
     </table>
     <h3>Текущий статус заказа: <span th:text="${order.status}"></span></h3>
-    <h3>Общая стоимость заказа: <span th:text="${order.getTotalAmount()}"></span></h3>
+    <h3>Совокупная стоимость заказа: <span th:text="${order.getTotalAmount()}+р."></span></h3>
     <hr/>
 </div>
 </body>

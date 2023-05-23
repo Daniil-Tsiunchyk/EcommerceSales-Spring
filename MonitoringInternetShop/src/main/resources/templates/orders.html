@@ -51,7 +51,7 @@
                 <td th:text="${stat.count}"></td>
                 <td th:text="${order.orderDate}"></td>
                 <td th:text="${order.user.name}"></td>
-                <td th:text="${order.getTotalAmount()}"></td>
+                <td th:text="${order.getTotalAmount()}+р."></td>
                 <td>
                     <div th:each="item : ${order.orderItems}">
                         <p th:text="${item.product.name + ' x ' + item.quantity}"></p>
