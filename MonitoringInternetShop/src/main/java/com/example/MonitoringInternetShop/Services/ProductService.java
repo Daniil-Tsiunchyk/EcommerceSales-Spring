@@ -1,6 +1,8 @@
 package com.example.MonitoringInternetShop.Services;
 
+import com.example.MonitoringInternetShop.Models.OrderItem;
 import com.example.MonitoringInternetShop.Models.Product;
+import com.example.MonitoringInternetShop.Repositories.OrderItemRepository;
 import com.example.MonitoringInternetShop.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     public List<Product> getFilteredAndSortedProducts(String category, String sortBy) {
         List<Product> products;
@@ -36,19 +41,6 @@ public class ProductService {
 
     public void saveProduct(Product product) {
         productRepository.save(product);
-    }
-
-    public void updateProduct(Long id, Product product) {
-        Product existingProduct = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
-        existingProduct.setName(product.getName());
-        existingProduct.setPrice(product.getPrice());
-        existingProduct.setDescription(product.getDescription());
-        existingProduct.setCategory(product.getCategory());
-        productRepository.save(existingProduct);
-    }
-
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
     }
 
     public List<Product> getTopProducts() {
@@ -97,4 +89,20 @@ public class ProductService {
             throw new RuntimeException("Продукт не найден с id: " + id);
         }
     }
+
+    public void updateProduct(Product product) {
+        Optional<Product> existingProduct = productRepository.findById(product.getId());
+        if (existingProduct.isPresent()) {
+            productRepository.save(product);
+        }
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    public List<OrderItem> findOrderItemsByProduct(Long productId) {
+        return orderItemRepository.findAllByProduct_Id(productId);
+    }
+
 }

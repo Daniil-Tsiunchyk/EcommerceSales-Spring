@@ -74,8 +74,4 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public boolean checkPassword(Long id, String password) {
-        User user = userRepository.findById(id).orElseThrow();
-        return user.getPassword().equals(password);
-    }
 }

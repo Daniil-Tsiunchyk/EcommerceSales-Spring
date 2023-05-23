@@ -70,6 +70,9 @@
                         </select>
                         <button type="submit">Обновить статус</button>
                     </form>
+                    <form th:action="@{/orders/delete/{id}(id=${order.id})}" method="post">
+                        <button type="submit">Удалить заказ</button>
+                    </form>
                 </td>
             </tr>
             </tbody>

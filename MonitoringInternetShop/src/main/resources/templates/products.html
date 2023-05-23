@@ -43,7 +43,6 @@
         </ul>
     </nav>
 </header>
-
 <main>
     <h1>Каталог товаров</h1>
     <div th:if="${alert}" th:text="${alert}" style="color: red;"></div>
@@ -95,9 +94,6 @@
                     <form th:action="@{/products/{id}/decrementStock(id=${product.id})}" method="post">
                         <input type="number" name="decrementAmount" min="1" required>
                         <button type="submit">-</button>
-                    </form>
-                    <form th:action="@{/products/{id}/edit(id=${product.id})}" method="post">
-                        <button type="submit">Редактировать</button>
                     </form>
                     <form th:action="@{/products/{id}/delete(id=${product.id})}" method="post">
                         <button type="submit">Удалить</button>

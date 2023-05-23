@@ -1,9 +1,11 @@
 package com.example.MonitoringInternetShop.Services;
 
 import com.example.MonitoringInternetShop.Models.Order;
+import com.example.MonitoringInternetShop.Models.OrderItem;
 import com.example.MonitoringInternetShop.Models.User;
 import com.example.MonitoringInternetShop.Repositories.OrderRepository;
-import com.example.MonitoringInternetShop.Repositories.UserRepository;
+import com.example.MonitoringInternetShop.Repositories.OrderItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private OrderItemRepository orderItemRepository;
 
     public List<Order> getLatestOrders() {
         return orderRepository.findAll(Sort.by(Sort.Direction.DESC, "orderDate")).stream()
@@ -29,7 +31,7 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public List<Order> searchOrders(String keyword) {
+    public List<Order> searchOrders() {
         return null;
     }
 
@@ -44,8 +46,7 @@ public class OrderService {
     }
 
     @Autowired
-    public OrderService(UserRepository userRepository, OrderRepository orderRepository) {
-        this.userRepository = userRepository;
+    public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
@@ -55,6 +56,17 @@ public class OrderService {
 
     public List<Order> getOrdersByStatus(String status) {
         return orderRepository.findByStatus(status);
+    }
+
+    @Transactional
+    public void deleteOrder(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid order Id:" + id));
+
+        List<OrderItem> orderItems = order.getOrderItems();
+        orderItemRepository.deleteAll(orderItems);
+
+        orderRepository.delete(order);
     }
 }
 

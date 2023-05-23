@@ -1,6 +1,7 @@
 package com.example.MonitoringInternetShop.Controllers;
 
 import com.example.MonitoringInternetShop.Models.Category;
+import com.example.MonitoringInternetShop.Models.OrderItem;
 import com.example.MonitoringInternetShop.Models.Product;
 import com.example.MonitoringInternetShop.Services.CategoryService;
 import com.example.MonitoringInternetShop.Services.ProductService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -40,16 +42,32 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/edit")
-    public String editProduct(@PathVariable("id") Long id, @ModelAttribute Product product) {
-        productService.updateProduct(id, product);
+    public String editProduct(@PathVariable Long id, Product product) {
+        Product existingProduct = productService.getProductById(id);
+        if (existingProduct != null) {
+            existingProduct.setName(product.getName());
+            existingProduct.setPrice(product.getPrice());
+            existingProduct.setSales(product.getSales());
+            existingProduct.setDescription(product.getDescription());
+            existingProduct.setCategory(product.getCategory());
+            existingProduct.setStock(product.getStock());
+            productService.updateProduct(existingProduct);
+        }
         return "redirect:/products";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteProduct(@PathVariable("id") Long id) {
+    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        List<OrderItem> orderItems = productService.findOrderItemsByProduct(id);
+        if (!orderItems.isEmpty()) {
+            redirectAttributes.addFlashAttribute("alert", "Нельзя удалить товар, пока у него есть заказы. Разберитесь с заказами перед удалением.");
+            return "redirect:/products";
+        }
+
         productService.deleteProduct(id);
         return "redirect:/products";
     }
+
 
     @PostMapping("/{id}/incrementStock")
     public String incrementProductStock(@PathVariable("id") Long id, @RequestParam("incrementAmount") Integer incrementAmount) {

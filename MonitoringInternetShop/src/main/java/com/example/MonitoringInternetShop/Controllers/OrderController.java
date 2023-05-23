@@ -36,17 +36,12 @@ public class OrderController {
         if (status != null && !status.isEmpty()) {
             orders = orderService.getOrdersByStatus(status);
         } else if (search != null) {
-            orders = orderService.searchOrders(search);
+            orders = orderService.searchOrders();
         } else {
             orders = orderService.getAllOrders();
         }
         model.addAttribute("orders", orders);
         return "orders";
-    }
-
-    @GetMapping("/orders/{id}")
-    public String orderDetail(@PathVariable Long id, Model model) {
-        return null;
     }
 
     @PostMapping("/orders/update/{id}")
@@ -140,6 +135,12 @@ public class OrderController {
         List<Order> orders = orderService.findOrdersByUser(user);
         model.addAttribute("orders", orders);
         return "user-orders";
+    }
+
+    @PostMapping("/orders/delete/{id}")
+    public String deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return "redirect:/orders";
     }
 
 }
