@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -33,6 +34,9 @@ public class OrderService {
     }
 
     public void updateOrderStatus(Long id, String status) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.setStatus(status);
+        orderRepository.save(order);
     }
 
     public Order saveOrder(Order order) {
@@ -47,6 +51,10 @@ public class OrderService {
 
     public List<Order> findOrdersByUser(User user) {
         return orderRepository.findByUser(user);
+    }
+
+    public List<Order> getOrdersByStatus(String status) {
+        return orderRepository.findByStatus(status);
     }
 }
 

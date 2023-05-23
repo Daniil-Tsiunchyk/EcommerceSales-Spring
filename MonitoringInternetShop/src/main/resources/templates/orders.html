@@ -11,7 +11,6 @@
 
         h1, h2 {
             color: black;
-
         }
     </style>
 </head>
@@ -31,19 +30,15 @@
 </header>
 <main>
     <section>
-        <h2>Фильтры и поиск</h2>
+        <h2>Фильтрация</h2>
         <form th:action="@{/orders}" method="get">
             <label for="status">Статус:</label>
             <select id="status" name="status">
                 <option value="">Все</option>
-                <option value="processing">В обработке</option>
-                <option value="sent">Отправлен</option>
-                <option value="completed">Завершен</option>
+                <option value="На рассмотрении">На рассмотрении</option>
+                <option value="Отправлен">Отправлен</option>
+                <option value="Завершен">Завершен</option>
             </select>
-
-            <label for="search">Поиск:</label>
-            <input type="text" id="search" name="search" placeholder="Поиск по номеру заказа или покупателю">
-
             <button type="submit">Применить</button>
         </form>
     </section>
@@ -52,18 +47,26 @@
         <h2>Список заказов</h2>
         <table>
             <tbody>
-            <tr th:each="order : ${orders}">
-                <td th:text="${order.id}"></td>
+            <tr th:each="order, stat : ${orders}">
+                <td th:text="${stat.count}"></td>
                 <td th:text="${order.orderDate}"></td>
                 <td th:text="${order.user.name}"></td>
                 <td th:text="${order.getTotalAmount()}"></td>
-                <td><a th:href="@{/orders/{id}(id=${order.id})}">Подробнее</a></td>
+                <td>
+                    <div th:each="item : ${order.orderItems}">
+                        <p th:text="${item.product.name + ' x ' + item.quantity}"></p>
+                    </div>
+                </td>
+                <td th:text="${order.status}"></td>
                 <td>
                     <form th:action="@{/orders/update/{id}(id=${order.id})}" method="post">
                         <select name="status" required>
-                            <option value="processing">В обработке</option>
-                            <option value="sent">Отправлен</option>
-                            <option value="completed">Завершен</option>
+                            <option value="На
+                                рассмотрении" th:selected="${order.status == 'На рассмотрении'}">На
+                                рассмотрении
+                            </option>
+                            <option value="Отправлен" th:selected="${order.status == 'Отправлен'}">Отправлен</option>
+                            <option value="Завершен" th:selected="${order.status == 'Завершен'}">Завершен</option>
                         </select>
                         <button type="submit">Обновить статус</button>
                     </form>

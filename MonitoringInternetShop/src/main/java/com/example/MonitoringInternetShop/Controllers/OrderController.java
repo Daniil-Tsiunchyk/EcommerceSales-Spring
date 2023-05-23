@@ -33,8 +33,8 @@ public class OrderController {
     @GetMapping("/orders")
     public String orders(@RequestParam(required = false) String status, @RequestParam(required = false) String search, Model model) {
         List<Order> orders;
-        if (status != null) {
-            orders = null;
+        if (status != null && !status.isEmpty()) {
+            orders = orderService.getOrdersByStatus(status);
         } else if (search != null) {
             orders = orderService.searchOrders(search);
         } else {
@@ -54,6 +54,7 @@ public class OrderController {
         orderService.updateOrderStatus(id, status);
         return "redirect:/orders";
     }
+
 
     @PostMapping("/orders/new")
     public String createOrder(@RequestParam String user, @RequestParam List<Long> products, @RequestParam int quantity, Model model) {
