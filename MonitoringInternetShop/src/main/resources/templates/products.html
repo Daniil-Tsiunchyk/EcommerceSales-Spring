@@ -8,6 +8,25 @@
         main h1, main h2 {
             color: black;
         }
+
+        h1, h2 {
+            color: black;
+        }
+
+        .product-form-container {
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product-form, .category-form {
+            width: 48%;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -34,6 +53,8 @@
             <label for="category">Категория:</label>
             <select id="category" name="category">
                 <option value="">Все</option>
+                <option th:each="category : ${categories}" th:value="${category.name}"
+                        th:text="${category.name}"></option>
             </select>
 
             <label for="sort">Сортировать по:</label>
@@ -55,6 +76,7 @@
                 <th>Цена</th>
                 <th>Описание</th>
                 <th>Количество</th>
+                <th>Продажи</th>
                 <th>Действия</th>
             </tr>
             </thead>
@@ -64,20 +86,21 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.stock}"></td>
+                <td th:text="${product.sales}"></td>
                 <td>
                     <form th:action="@{/products/{id}/incrementStock(id=${product.id})}" method="post">
                         <input type="number" name="incrementAmount" min="1" required>
-                        <input type="submit" value="+"/>
+                        <button type="submit">+</button>
                     </form>
                     <form th:action="@{/products/{id}/decrementStock(id=${product.id})}" method="post">
                         <input type="number" name="decrementAmount" min="1" required>
-                        <input type="submit" value="-"/>
+                        <button type="submit">-</button>
                     </form>
                     <form th:action="@{/products/{id}/edit(id=${product.id})}" method="post">
-                        <input type="submit" value="Редактировать"/>
+                        <button type="submit">Редактировать</button>
                     </form>
                     <form th:action="@{/products/{id}/delete(id=${product.id})}" method="post">
-                        <input type="submit" value="Удалить"/>
+                        <button type="submit">Удалить</button>
                     </form>
                 </td>
             </tr>
@@ -86,8 +109,8 @@
     </section>
 
     <section>
-        <div style="display: flex; justify-content: space-between;">
-            <div>
+        <div class="product-form-container">
+            <div class="product-form">
                 <h2>Добавить товар</h2>
                 <form th:action="@{/products}" th:object="${product}" method="post">
                     <label for="name">Название:</label>
@@ -102,8 +125,8 @@
                     <label for="category">Категория:</label>
                     <select id="category" name="category" th:field="*{category}">
                         <option value="">Все</option>
-                        <option th:each="category : ${categories}" th:value="${category}"
-                                th:text="${category}"></option>
+                        <option th:each="category : ${categories}" th:value="${category.name}"
+                                th:text="${category.name}"></option>
                     </select>
 
                     <label for="stock">Количество:</label>
@@ -112,19 +135,16 @@
                     <button type="submit">Добавить</button>
                 </form>
             </div>
-            <!--            <div>-->
-            <!--                <h2>Добавить категорию</h2>-->
-            <!--                <form th:action="@{/categories}" th:object="${category}" method="post">-->
-            <!--                    <label for="name">Название:</label>-->
-            <!--                    <input type="text" id="name" name="name" th:field="*{name}" required>-->
-
-            <!--                    <button type="submit">Добавить</button>-->
-            <!--                </form>-->
-            <!--            </div>-->
+            <div class="category-form">
+                <h2>Добавить категорию</h2>
+                <form th:action="@{/products/categories}" th:object="${category}" method="post">
+                    <label for="name">Название:</label>
+                    <input type="text" id="name" name="name" th:field="*{name}" required>
+                    <button type="submit">Добавить</button>
+                </form>
+            </div>
         </div>
     </section>
-</main>
-</section>
 </main>
 </body>
 </html>

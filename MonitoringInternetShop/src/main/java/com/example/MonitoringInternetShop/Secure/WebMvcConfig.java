@@ -9,8 +9,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AdminCheckInterceptor()).addPathPatterns("", "");
-        registry.addInterceptor(new UserCheckInterceptor()).addPathPatterns("", "");
+//        registry.addInterceptor(new AdminCheckInterceptor()).addPathPatterns("/**");
+//        registry.addInterceptor(new UserCheckInterceptor()).addPathPatterns("/**");
     }
 
 }

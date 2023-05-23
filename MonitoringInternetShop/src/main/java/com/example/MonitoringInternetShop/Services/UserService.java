@@ -23,11 +23,12 @@ public class UserService {
 
     public User validateUser(String username, String password) {
         User user = userRepository.findByLogin(username);
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
             return user;
         }
         return null;
     }
+
 
     public User getLoggedInUser(HttpSession session) {
         return (User) session.getAttribute("user");

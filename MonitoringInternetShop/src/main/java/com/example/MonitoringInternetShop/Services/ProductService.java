@@ -17,27 +17,22 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<Product> getFilteredAndSortedProducts(String category, String sortBy) {
-        List<Product> products = productRepository.findAll();
-
-        if (category != null) {
-            products = products.stream().filter(p -> p.getCategory().equals(category)).collect(Collectors.toList());
+        List<Product> products;
+        if (category != null && !category.isEmpty()) {
+            products = productRepository.findByCategory(category);
+        } else {
+            products = productRepository.findAll();
         }
-
-        Comparator<Product> comparator = null;
-        if (sortBy != null) {
-            switch (sortBy) {
-                case "priceAsc" -> comparator = Comparator.comparing(Product::getPrice);
-                case "priceDesc" -> comparator = (p1, p2) -> p2.getPrice().compareTo(p1.getPrice());
-                case "popularity" -> comparator = (p1, p2) -> p2.getSales() - p1.getSales();
+        if (sortBy != null && !sortBy.isEmpty()) {
+            if ("price".equalsIgnoreCase(sortBy)) {
+                products.sort(Comparator.comparing(Product::getPrice));
+            } else if ("popularity".equalsIgnoreCase(sortBy)) {
+                products.sort(Comparator.comparing(Product::getSales).reversed());
             }
         }
-
-        if (comparator != null) {
-            products = products.stream().sorted(comparator).collect(Collectors.toList());
-        }
-
         return products;
     }
+
 
     public void saveProduct(Product product) {
         productRepository.save(product);
@@ -88,15 +83,16 @@ public class ProductService {
         }
     }
 
-    public void decrementProductStock(Long id, Integer decrementAmount) {
+    public void decrementProductStock(Long id, Integer decrementAmount) throws RuntimeException {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
-            if(product.getStock() >= decrementAmount) {
+            if (product.getStock() >= decrementAmount) {
                 product.setStock(product.getStock() - decrementAmount);
             } else {
-                throw new RuntimeException("Товара на складе недостаточн у d: " + id);
+                //throw new RuntimeException("Товара на складе недостаточно с id: " + id);
             }
+            productRepository.save(product);
         } else {
             throw new RuntimeException("Продукт не найден с id: " + id);
         }

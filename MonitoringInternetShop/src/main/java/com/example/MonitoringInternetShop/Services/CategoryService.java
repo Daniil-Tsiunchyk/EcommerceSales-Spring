@@ -9,19 +9,16 @@ import java.util.List;
 
 @Service
 public class CategoryService {
-
-    private final CategoryRepository categoryRepository;
-
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    private CategoryRepository categoryRepository;
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
     public void saveCategory(Category category) {
         categoryRepository.save(category);
     }
 
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
-    }
 }
+

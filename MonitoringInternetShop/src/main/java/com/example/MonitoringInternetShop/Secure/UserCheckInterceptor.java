@@ -13,10 +13,11 @@ public class UserCheckInterceptor implements HandlerInterceptor {
             throws Exception {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user == null || !user.getRole().equals("USER")) {
+        if (user == null || (!user.getRole().equals("USER") && !user.getRole().equals("ADMIN"))) {
             response.sendRedirect("/login");
             return false;
         }
         return true;
     }
+
 }

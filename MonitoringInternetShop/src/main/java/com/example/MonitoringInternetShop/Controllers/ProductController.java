@@ -18,7 +18,8 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private  CategoryService categoryService;
+    private CategoryService categoryService;
+
     @GetMapping
     public String products(Model model,
                            @RequestParam(name = "category", required = false) String category,
@@ -28,9 +29,9 @@ public class ProductController {
         model.addAttribute("products", products);
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categories);
+        model.addAttribute("category", new Category());
         return "products";
     }
-
 
     @PostMapping
     public String createProduct(@ModelAttribute Product product) {
@@ -56,11 +57,22 @@ public class ProductController {
         return "redirect:/products";
     }
 
+
     @PostMapping("/{id}/decrementStock")
-    public String decrementProductStock(@PathVariable("id") Long id, @RequestParam("decrementAmount") Integer decrementAmount) {
-        productService.decrementProductStock(id, decrementAmount);
+    public String decrementProductStock(@PathVariable("id") Long id, @RequestParam("decrementAmount") Integer decrementAmount, Model model) {
+        try {
+            productService.decrementProductStock(id, decrementAmount);
+        } catch (RuntimeException ex) {
+            model.addAttribute("alert", ex.getMessage());
+            return "products";
+        }
         return "redirect:/products";
     }
 
+    @PostMapping("/categories")
+    public String createCategory(@ModelAttribute Category category) {
+        categoryService.saveCategory(category);
+        return "redirect:/products";
+    }
 
 }
