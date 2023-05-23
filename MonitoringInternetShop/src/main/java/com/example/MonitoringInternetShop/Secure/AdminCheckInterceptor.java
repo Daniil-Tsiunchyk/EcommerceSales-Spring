@@ -14,7 +14,7 @@ public class AdminCheckInterceptor implements HandlerInterceptor {
             throws Exception {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user == null || !user.getRole().equals("ADMIN")) {
+        if (user == null || !user.getRole().equals("admin")) {
             response.sendRedirect("/login");
             return false;
         }
