@@ -59,4 +59,23 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public void updateUserPassword(Long id, String newPassword) {
+        User user = getUserById(id);
+        if (user != null) {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+        }
+    }
+
+    public void updateUserStatus(Long id, String status) {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setStatus(status);
+        userRepository.save(user);
+    }
+
+    public boolean checkPassword(Long id, String password) {
+        User user = userRepository.findById(id).orElseThrow();
+        return user.getPassword().equals(password);
+    }
 }

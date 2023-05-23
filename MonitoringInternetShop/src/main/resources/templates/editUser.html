@@ -5,14 +5,50 @@
     <title>Редактирование пользователя</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <style>
-        main h1, main h2 {
-            color: black;
+        h1 {
+            color: #000000
         }
 
-        h1, h2 {
-            color: black;
-
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 60px);
+            background-color: #f0f0f0;
         }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        input, select {
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
     </style>
 </head>
 <body>
@@ -29,14 +65,30 @@
         </ul>
     </nav>
 </header>
-<h1>Редактирование пользователя</h1>
-<form th:action="@{/userManagement/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
-    <label>Имя: <input type="text" th:field="*{name}"/></label>
-    <label>Почта: <input type="text" th:field="*{mail}"/></label>
-    <label>Логин: <input type="text" th:field="*{login}"/></label>
-    <label>Роль: <input type="text" th:field="*{role}"/></label>
-    <label>Статус: <input type="text" th:field="*{status}"/></label>
-    <input type="submit" value="Обновить"/>
-</form>
+<div class="form-container">
+    <h1>Редактирование пользователя</h1>
+    <form th:action="@{/userManagement/edit/{id}(id=${user.id})}" th:object="${user}" method="post"
+          onsubmit="return confirm('Вы уверены, что хотите обновить данные пользователя?');">
+        <label>Имя: <input type="text" th:field="*{name}" required/></label>
+        <label>Почта: <input type="text" th:field="*{mail}" required/></label>
+        <label>Логин: <input type="text" th:field="*{login}" required/></label>
+        <label>Новый пароль: <input type="password" th:field="*{password}" required/></label>
+        <label>Роль:
+            <select th:field="*{role}" required>
+                <option value="">Выберите роль...</option>
+                <option value="admin">Администратор</option>
+                <option value="user">Пользователь</option>
+            </select>
+        </label>
+        <label>Статус:
+            <select th:field="*{status}" required>
+                <option value="">Выберите статус...</option>
+                <option value="active">Активированный</option>
+                <option value="inactive">Неактивированный</option>
+            </select>
+        </label>
+        <button type="submit">Обновить данные</button>
+    </form>
+</div>
 </body>
 </html>

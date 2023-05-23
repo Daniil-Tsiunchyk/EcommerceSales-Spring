@@ -46,7 +46,7 @@
 
 <main>
     <h1>Каталог товаров</h1>
-
+    <div th:if="${alert}" th:text="${alert}" style="color: red;"></div>
     <section>
         <h2>Фильтры и сортировка</h2>
         <form th:action="@{/products}" method="get">

@@ -34,6 +34,8 @@ public class UserManagementController {
 
     @PostMapping("/edit/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute User user) {
+        userService.updateUserPassword(id, user.getPassword());
+        userService.updateUserStatus(id, user.getStatus());
         userService.updateUser(id, user);
         return "redirect:/userManagement";
     }
@@ -44,4 +46,3 @@ public class UserManagementController {
         return "redirect:/userManagement";
     }
 }
-

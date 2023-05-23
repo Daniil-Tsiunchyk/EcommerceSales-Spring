@@ -90,7 +90,7 @@ public class ProductService {
             if (product.getStock() >= decrementAmount) {
                 product.setStock(product.getStock() - decrementAmount);
             } else {
-                //throw new RuntimeException("Товара на складе недостаточно с id: " + id);
+                throw new RuntimeException("Товара на складе недостаточно с id: " + id);
             }
             productRepository.save(product);
         } else {

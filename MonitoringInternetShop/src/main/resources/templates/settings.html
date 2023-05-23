@@ -5,16 +5,52 @@
     <title>Настройки</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <style>
-        main h1, main h2 {
-            color: black;
+        h1 {
+            color: #000000;
         }
 
-        h1, h2 {
-            color: black;
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 60px);
+            background-color: #f0f0f0;
+        }
 
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
         }
     </style>
-
 </head>
 <body>
 <header>
@@ -30,16 +66,21 @@
         </ul>
     </nav>
 </header>
-<h1>Настройки</h1>
+<div class="form-container">
+    <h1>Настройки</h1>
+    <div class="form-container">
+        <h1>Настройки</h1>
+        <form th:action="@{/settings}" th:object="${user}" method="post">
+            <label>Имя: <input type="text" th:field="*{name}"/></label>
+            <label>Email: <input type="text" th:field="*{mail}"/></label>
+            <label>Логин: <input type="text" th:field="*{login}"/></label>
+            <label>Роль: <input type="text" th:field="*{role}" readonly/></label>
+            <label>Статус: <input type="text" th:field="*{status}" readonly/></label>
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
 
-<form th:action="@{/settings}" th:object="${user}" method="post">
-    <label>Имя: <input type="text" th:field="*{name}"/></label>
-    <label>Email: <input type="text" th:field="*{mail}"/></label>
-    <label>Логин: <input type="text" th:field="*{login}"/></label>
-    <label>Роль: <input type="text" th:field="*{role}"/></label>
-    <label>Статус: <input type="text" th:field="*{status}"/></label>
-    <input type="submit" value="Обновить"/>
-</form>
+</div>
 
 </body>
 </html>
