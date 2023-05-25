@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование акции</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <style>
+        h1 {
+            color: #000000
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 60px);
+            background-color: #f0f0f0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        input, textarea {
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/dashboard}">Аналитика</a></li>
+            <li><a th:href="@{/products}">Каталог товаров</a></li>
+            <li><a th:href="@{/orders}">Заказы</a></li>
+            <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
+            <li><a th:href="@{/userManagement}">Управление пользователями</a></li>
+            <li><a th:href="@{/settings}">Настройки аккаунта</a></li>
+            <li><a th:href="@{/login}">Выйти</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="form-container">
+    <h1>Редактирование акции</h1>
+    <form th:action="@{/promotions/edit/{id}(id=${promotion.id})}" th:object="${promotion}" method="post"
+          onsubmit="return confirm('Вы уверены, что хотите обновить данные акции?');">
+        <label>Название: <input type="text" th:field="*{name}" required/></label>
+        <label>Дата начала: <input type="date" th:field="*{startDate}" required/></label>
+        <label>Дата окончания: <input type="date" th:field="*{endDate}" required/></label>
+        <label>Условия применения: <textarea th:field="*{conditions}" required></textarea></label>
+        <button type="submit">Обновить данные</button>
+    </form>
+</div>
+</body>
+</html>

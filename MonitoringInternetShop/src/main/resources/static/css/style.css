@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+
 body {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -144,9 +147,6 @@ nav ul {
     height: 35px;
     margin-bottom: 10px;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
 
 body {
     font-family: 'Roboto', sans-serif;

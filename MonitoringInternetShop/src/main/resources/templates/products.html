@@ -113,7 +113,7 @@
                     <input type="text" id="name" name="name" th:field="*{name}" required>
 
                     <label for="price">Цена:</label>
-                    <input type="number" id="price" name="price" th:field="*{price}" required>
+                    <input type="number" id="price" name="price" min="1" th:field="*{price}" required>
 
                     <label for="description">Описание:</label>
                     <textarea id="description" name="description" th:field="*{description}" required></textarea>
@@ -126,7 +126,7 @@
                     </select>
 
                     <label for="stock">Количество:</label>
-                    <input type="number" id="stock" name="stock" th:field="*{stock}" required>
+                    <input type="number" id="stock" name="stock" min="1" th:field="*{stock}" required>
 
                     <button type="submit">Добавить</button>
                 </form>

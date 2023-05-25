@@ -49,8 +49,8 @@
         <td th:text="${promotion.endDate}"></td>
         <td th:text="${promotion.conditions}"></td>
         <td>
-            <button>Редактировать</button>
-            <button>Удалить</button>
+            <a th:href="@{/promotions/edit/{id}(id=${promotion.id})}">Редактировать</a>
+            <a th:href="@{/promotions/delete/{id}(id=${promotion.id})}">Удалить</a>
         </td>
     </tr>
     </tbody>

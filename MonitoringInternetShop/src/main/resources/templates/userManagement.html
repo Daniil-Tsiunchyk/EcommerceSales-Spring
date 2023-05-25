@@ -55,10 +55,11 @@
         <td th:text="${user.role}"></td>
         <td th:text="${user.status}"></td>
         <td>
-            <button th:href="@{/userManagement/edit/{id}(id=${user.id})}">Изменить</button>
+            <a th:href="@{/userManagement/edit/{id}(id=${user.id})}">Изменить</a>
             |
-            <button th:href="@{/userManagement/delete/{id}(id=${user.id})}">Удалить</button>
+            <a th:href="@{/userManagement/delete/{id}(id=${user.id})}">Удалить</a>
         </td>
+
     </tr>
     </tbody>
 </table>

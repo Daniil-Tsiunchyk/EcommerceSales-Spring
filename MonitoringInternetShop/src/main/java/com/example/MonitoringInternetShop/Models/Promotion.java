@@ -55,4 +55,8 @@ public class Promotion {
         this.conditions = conditions;
     }
 
+    public boolean isActive() {
+        LocalDate now = LocalDate.now();
+        return (now.isEqual(startDate) || now.isAfter(startDate)) && now.isBefore(endDate);
+    }
 }
