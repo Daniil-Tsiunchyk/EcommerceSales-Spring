@@ -68,18 +68,14 @@
 </header>
 <div class="form-container">
     <h1>Настройки</h1>
-    <div class="form-container">
-        <h1>Настройки</h1>
-        <form th:action="@{/settings}" th:object="${user}" method="post">
-            <label>Имя: <input type="text" th:field="*{name}"/></label>
-            <label>Email: <input type="text" th:field="*{mail}"/></label>
-            <label>Логин: <input type="text" th:field="*{login}"/></label>
-            <label>Роль: <input type="text" th:field="*{role}" readonly/></label>
-            <label>Статус: <input type="text" th:field="*{status}" readonly/></label>
-            <button type="submit">Обновить</button>
-        </form>
-    </div>
-
+    <form th:action="@{/settings}" th:object="${user}" method="post">
+        <label>Имя: <input type="text" th:field="*{name}"/></label>
+        <label>Email: <input type="text" th:field="*{mail}"/></label>
+        <label>Логин: <input type="text" th:field="*{login}"/></label>
+        <label>Роль: <input type="text" th:field="*{role}" readonly/></label>
+        <label>Статус: <input type="text" th:field="*{status}" readonly/></label>
+        <button type="submit">Обновить</button>
+    </form>
 </div>
 
 </body>

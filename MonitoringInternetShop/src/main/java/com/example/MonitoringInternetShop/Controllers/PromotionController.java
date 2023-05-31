@@ -32,7 +32,7 @@ public class PromotionController {
     @GetMapping("/promotions/edit/{id}")
     public String editPromotion(@PathVariable("id") Long id, Model model) {
         Promotion promotion = promotionService.getPromotionById(id);
-        if (promotion != null && promotion.isActive()) {
+        if (promotion != null) {
             model.addAttribute("promotion", promotion);
             return "editPromotion";
         } else {
