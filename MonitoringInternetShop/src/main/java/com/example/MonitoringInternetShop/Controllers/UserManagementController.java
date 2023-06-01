@@ -18,7 +18,7 @@ public class UserManagementController {
 
     @GetMapping("")
     public String showUsers(Model model, HttpSession session) {
-        User loggedInUser = userService.getLoggedInUser(session);
+        User loggedInUser = userService.getLoggedInUser(session).orElseThrow();
         List<User> users = userService.getAllUsers();
         users.remove(loggedInUser);
         model.addAttribute("users", users);
@@ -27,7 +27,7 @@ public class UserManagementController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
-        User user = userService.getUserById(id);
+        User user = userService.getUserById(id).orElseThrow();
         model.addAttribute("user", user);
         return "editUser";
     }

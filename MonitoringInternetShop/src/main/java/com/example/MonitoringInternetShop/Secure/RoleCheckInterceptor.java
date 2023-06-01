@@ -19,10 +19,11 @@ public class RoleCheckInterceptor implements HandlerInterceptor {
             throws Exception {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user == null || !user.getRole().equals(expectedRole)) {
+        if (user == null || !user.getRole().equals(User.Role.valueOf(expectedRole))) {
             response.sendRedirect("/login");
             return false;
         }
         return true;
     }
+
 }

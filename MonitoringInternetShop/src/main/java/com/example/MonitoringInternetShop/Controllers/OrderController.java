@@ -52,9 +52,9 @@ public class OrderController {
 
 
     @PostMapping("/orders/new")
-    public String createOrder(@RequestParam String user, @RequestParam List<Long> products, @RequestParam int quantity, Model model) {
+    public String createOrder(@RequestParam String user, @RequestParam List<Long> products, @RequestParam int quantity) {
         Order newOrder = new Order();
-        newOrder.setUser(userService.findByName(user));
+        newOrder.setUser(userService.findByName(user).orElseThrow());
         newOrder.setOrderDate(LocalDate.now());
 
         List<OrderItem> orderItems = new ArrayList<>();

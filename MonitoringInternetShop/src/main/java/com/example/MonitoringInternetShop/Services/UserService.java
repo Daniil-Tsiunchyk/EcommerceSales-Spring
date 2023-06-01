@@ -4,6 +4,7 @@ import com.example.MonitoringInternetShop.Models.User;
 import com.example.MonitoringInternetShop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,36 +17,35 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User findByName(String name) {
-        Optional<User> userOptional = userRepository.findByName(name);
-        return userOptional.orElse(null);
+    public Optional<User> findByName(String name) {
+        return userRepository.findByName(name);
     }
 
-    public User validateUser(String username, String password) {
-        User user = userRepository.findByLogin(username);
-        if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
-            return user;
+    public Optional<User> validateUser(String username, String password) {
+        Optional<User> userOptional = userRepository.findByLogin(username);
+        if (userOptional.isPresent() && password.equals(userOptional.get().getPassword())) {
+            return userOptional;
         }
-        return null;
+        return Optional.empty();
     }
 
-
-    public User getLoggedInUser(HttpSession session) {
-        return (User) session.getAttribute("user");
+    public Optional<User> getLoggedInUser(HttpSession session) {
+        return Optional.ofNullable((User) session.getAttribute("user"));
     }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User getUserById(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.orElse(null);
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 
+    @Transactional
     public void updateUser(Long id, User userDetails) {
-        User user = getUserById(id);
-        if (user != null) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
             user.setName(userDetails.getName());
             user.setMail(userDetails.getMail());
             user.setLogin(userDetails.getLogin());
@@ -56,22 +56,28 @@ public class UserService {
         }
     }
 
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateUserPassword(Long id, String newPassword) {
-        User user = getUserById(id);
-        if (user != null) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
             user.setPassword(newPassword);
             userRepository.save(user);
         }
     }
 
-    public void updateUserStatus(Long id, String status) {
-        User user = userRepository.findById(id).orElseThrow();
-        user.setStatus(status);
-        userRepository.save(user);
+    @Transactional
+    public void updateUserStatus(Long id, User.Status status) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setStatus(status);
+            userRepository.save(user);
+        }
     }
-
 }

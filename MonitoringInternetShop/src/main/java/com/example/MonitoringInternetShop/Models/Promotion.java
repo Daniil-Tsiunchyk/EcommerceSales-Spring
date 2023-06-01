@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "promotion")
 @Getter
