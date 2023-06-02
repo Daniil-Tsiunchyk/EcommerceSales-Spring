@@ -4,45 +4,7 @@
     <meta charset="UTF-8">
     <title>Аналитика</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .analytics {
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        .general-stats ul {
-            list-style-type: none;
-        }
-
-        .general-stats, .sales-chart-wrapper {
-            width: 45%;
-            float: left;
-        }
-
-        .sales-chart {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table th,
-        table td {
-            border: 1px solid #000;
-            padding: 5px;
-        }
-
-        table th {
-            background-color: #f0f0f0;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dashboard-style.css}"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -53,7 +15,7 @@
             <li><a th:href="@{/products}">Каталог товаров</a></li>
             <li><a th:href="@{/orders}">Заказы</a></li>
             <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
-            <li><a th:href="@{/userManagement}">Управление пользователями</a></li>
+            <li><a th:href="@{/user-management}">Управление пользователями</a></li>
             <li><a th:href="@{/settings}">Настройки аккаунта</a></li>
             <li><a th:href="@{/login}">Выйти</a></li>
         </ul>
@@ -79,7 +41,6 @@
             </div>
         </div>
     </div>
-    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 
     <div class="top-products">
         <h2>Топ-10 самых продаваемых товаров</h2>

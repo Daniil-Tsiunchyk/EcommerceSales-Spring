@@ -4,52 +4,6 @@
     <meta charset="UTF-8">
     <title>Редактирование пользователя</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <style>
-        h1 {
-            color: #000000
-        }
-
-        .form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 60px);
-            background-color: #f0f0f0;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        label {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        input, select {
-            width: 100%;
-            margin-top: 5px;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-    </style>
 </head>
 <body>
 <header>
@@ -59,7 +13,7 @@
             <li><a th:href="@{/products}">Каталог товаров</a></li>
             <li><a th:href="@{/orders}">Заказы</a></li>
             <li><a th:href="@{/promotions}">Управление акциями и скидками</a></li>
-            <li><a th:href="@{/userManagement}">Управление пользователями</a></li>
+            <li><a th:href="@{/user-management}">Управление пользователями</a></li>
             <li><a th:href="@{/settings}">Настройки аккаунта</a></li>
             <li><a th:href="@{/login}">Выйти</a></li>
         </ul>
@@ -67,7 +21,7 @@
 </header>
 <div class="form-container">
     <h1>Редактирование пользователя</h1>
-    <form th:action="@{/userManagement/edit/{id}(id=${user.id})}" th:object="${user}" method="post"
+    <form th:action="@{/user-management/edit/{id}(id=${user.id})}" th:object="${user}" method="post"
           onsubmit="return confirm('Вы уверены, что хотите обновить данные пользователя?');">
         <label>Имя: <input type="text" th:field="*{name}" required/></label>
         <label>Почта: <input type="text" th:field="*{mail}" required/></label>

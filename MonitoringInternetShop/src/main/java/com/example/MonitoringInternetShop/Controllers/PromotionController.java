@@ -34,7 +34,7 @@ public class PromotionController {
         Promotion promotion = promotionService.getPromotionById(id);
         if (promotion != null) {
             model.addAttribute("promotion", promotion);
-            return "editPromotion";
+            return "edit-promotion";
         } else {
             return "redirect:/promotions";
         }

@@ -9,7 +9,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RoleCheckInterceptor("ADMIN")).addPathPatterns("/dashboard", "/edit_order", "/editUser", "/orders", "/products", "/promotions", "/settings", "/userManagement");
+        registry.addInterceptor(new RoleCheckInterceptor("ADMIN")).addPathPatterns("/dashboard", "/edit_order", "/edit-user", "/orders", "/products", "/promotions", "/settings", "/user-management");
         registry.addInterceptor(new RoleCheckInterceptor("USER")).addPathPatterns("/create-order", "/user-orders");
     }
 

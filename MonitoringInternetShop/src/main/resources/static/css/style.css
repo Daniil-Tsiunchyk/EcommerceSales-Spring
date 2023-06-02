@@ -189,3 +189,18 @@ footer {
         opacity: 1;
     }
 }
+
+.product-form-container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-form, .category-form {
+    width: 48%;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}

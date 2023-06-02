@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Controller
-@RequestMapping("userManagement")
+@RequestMapping("user-management")
 public class UserManagementController {
     @Autowired
     private UserService userService;
@@ -22,14 +22,14 @@ public class UserManagementController {
         List<User> users = userService.getAllUsers();
         users.remove(loggedInUser);
         model.addAttribute("users", users);
-        return "userManagement";
+        return "user-management";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         User user = userService.getUserById(id).orElseThrow();
         model.addAttribute("user", user);
-        return "editUser";
+        return "edit-user";
     }
 
     @PostMapping("/edit/{id}")
@@ -37,12 +37,12 @@ public class UserManagementController {
         userService.updateUserPassword(id, user.getPassword());
         userService.updateUserStatus(id, user.getStatus());
         userService.updateUser(id, user);
-        return "redirect:/userManagement";
+        return "redirect:/user-management";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/userManagement";
+        return "redirect:/user-management";
     }
 }
