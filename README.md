@@ -64,7 +64,7 @@
 
 1. Клонировать репозиторий
 ```shell
-git clone https://github.com/Heimdall-Program/ecommerce-operations-monitor.git
+git clone https://github.com/Daniil-Tsiunchyk/ecommerce-operations-monitor.git
 ```
 
 2. Перейти в каталог проекта
